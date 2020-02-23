@@ -1,0 +1,50 @@
+{
+  "name": "offwhite-graph",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "export NODE_ENV=test && mocha --require babel-register --inspect test/**/*.js --exit",
+    "dev": "nodemon --exec babel-node --presets babel-preset-env --inspect  ./src/server",
+    "build": "babel ./src --out-dir dist --source-maps --copy-files",
+    "test-deployment": "yarn build && node dist/server",
+    "start": "node ./dist/server",
+    "debug": "babel-node debug ./src"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.4.2",
+    "graphql-errors": "^2.1.0",
+    "graphql-import": "^0.7.1",
+    "graphql-import-node": "^0.0.4",
+    "graphql-tools": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongodb": "^3.3.2",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "rimraf": "^2.6.3",
+    "sails-disk": "^1.1.2",
+    "sails-mongo": "https://github.com/luislobo/sails-mongo#upgrade-mongodb-drivers",
+    "sha1": "^1.1.1",
+    "source-map-support": "^0.5.13",
+    "uuidv4": "^4.0.0",
+    "waterline": "^0.13.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.4",
+    "nyc": "^14.1.1"
+  }
+}

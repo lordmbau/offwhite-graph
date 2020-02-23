@@ -1,0 +1,15 @@
+type Query{
+  hello: String
+}
+
+# type User{
+#   id: String
+#   name: String
+#   department: Department
+# }
+
+# type Department{
+#   id: String
+#   name: String
+#   hod: User
+# }

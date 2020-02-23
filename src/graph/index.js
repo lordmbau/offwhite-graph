@@ -1,7 +1,7 @@
-const resolvers = {
-  Query: {
-    hello: () => "Hello, world"
-  }
+import { Query, nested } from "./queries"
+
+const root = {
+  Query
 }
 
-export default resolvers
+export default Object.assign(root, nested)

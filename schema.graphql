@@ -1,5 +1,20 @@
 type Query{
   hello: String
+
+  pireps: [Pirep]
+  pirep(id: Int!): Pirep
+
+  line_plans: [LinePlan]
+  line_plan(id: Int!): LinePlan
+
+  materials: [Material]
+  material(id: Int!): Material
+
+  line_maintenances: [LineMaintenance]
+  line_maintenance(id: Int!): LineMaintenance
+
+  tech_records: [TechRecord]
+  tech_record(id: Int!): TechRecord
 }
 
 # type User{
@@ -13,3 +28,37 @@ type Query{
 #   name: String
 #   hod: User
 # }
+
+type Pirep{
+  id: Int
+  reg_no: String
+  defects: [Int]
+}
+
+type LinePlan{
+  id: Int
+  defects: [Int]
+  reg_no: String
+  ata_chapter: String
+  ata_subchapter: String
+  maintenance_manual: String
+}
+
+type Material{
+  id: Int
+  name: String
+  p_n: String
+  s_n: String
+  status: Boolean
+}
+
+type LineMaintenance{
+  id: Int
+  lp: LinePlan
+}
+
+type TechRecord{
+  id: Int
+  materials: [Material]
+  status: Boolean
+}

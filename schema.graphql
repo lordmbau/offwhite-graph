@@ -118,6 +118,7 @@ type defect{
   description: String
   ata_chapter: String
   ata_subchapter: String
+  manual: String
 }
 
 input Idefect{
@@ -126,6 +127,7 @@ input Idefect{
   description: String!
   ata_chapter: String
   ata_subchapter: String
+  manual: String
 }
 
 input Udefect{
@@ -135,6 +137,7 @@ input Udefect{
   description: String
   ata_chapter: String
   ata_subchapter: String
+  manual: String
 }
 
 type defectMutations{

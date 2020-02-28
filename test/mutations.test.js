@@ -420,7 +420,8 @@ describe("Defects", () => {
           defect: {
             id: sharedInfo.defectId,
             ata_chapter: "ata chapter",
-            ata_subchapter: "ata subchapter"
+            ata_subchapter: "ata subchapter",
+            manual: "http://link.to/manual"
           }
         }
       })

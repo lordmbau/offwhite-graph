@@ -23,7 +23,7 @@ const func = ({ data: { phone, message } }, reply = console.log) => {
       to: coolNumber,
       message: Body,
       username: 'Munyingi',
-      from: 'Adrian OHS'
+      from: 'Offwhite Sys'
     }
   }
 

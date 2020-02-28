@@ -459,3 +459,94 @@ describe("Defects", () => {
       });
   });
 });
+
+describe("Rotables", () => {
+  it("Should create an rotable", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($rotable: Irotable!) {
+            rotables {
+              create(rotable: $rotable) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          rotable: {
+            name: "rotable one",
+            part_no: "ccx1",
+            serial_no: "12345",
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.rotables.create.id).to.be.a.string;
+
+        sharedInfo.rotableId = res.body.data.rotables.create.id;
+        done();
+      });
+  });
+
+  it("Should update an rotable", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($rotable: Urotable!) {
+            rotables {
+              update(rotable: $rotable) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          rotable: {
+            id: sharedInfo.rotableId,
+            airplane: sharedInfo.airplaneId
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.rotables.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch rotable", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          rotables{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.rotables[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});

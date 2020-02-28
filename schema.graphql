@@ -12,6 +12,9 @@ type Query{
 
   defects: [defect]
   defect(defect: Udefect!): defect
+
+  rotables: [rotable]
+  rotable(rotable: Urotable!): rotable
 }
 
 type Mutation{
@@ -19,6 +22,7 @@ type Mutation{
   departments: departmentMutations
   users: userMutations
   defects: defectMutations
+  rotables: rotableMutations
 }
 
 type airplane{
@@ -134,4 +138,34 @@ type defectMutations{
   update(defect: Udefect): defect
   archive(defect: Udefect): defect
   restore(defect: Udefect): defect
+}
+
+type rotable{
+  id: String
+  name: String
+  part_no: String
+  serial_no: String
+  airplane: airplane
+}
+
+input Irotable{
+  name: String!
+  part_no: String!
+  serial_no: String!
+  airplane: String
+}
+
+input Urotable{
+  id: String!
+  name: String
+  part_no: String
+  serial_no: String
+  airplane: String
+}
+
+type rotableMutations{
+  create(rotable: Irotable): rotable
+  update(rotable: Urotable): rotable
+  archive(rotable: Urotable): rotable
+  restore(rotable: Urotable): rotable
 }

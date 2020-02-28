@@ -21,13 +21,20 @@ import {
   nested as Ndefect
 } from "./defects"
 
+import {
+  list as rotables,
+  single as rotable,
+  nested as Nrotable
+} from "./rotables"
+
 const nested = {}
 
 Object.assign(
   nested,
   Ndepartment,
   Nuser,
-  Ndefect
+  Ndefect,
+  Nrotable
 )
 
 const Query = {
@@ -43,7 +50,10 @@ const Query = {
   user,
 
   defects,
-  defect
+  defect,
+
+  rotables,
+  rotable
 }
 
 export {

@@ -16,6 +16,33 @@ if (NODE_ENV !== "test") app.use(morgan("dev"), cors());
 const attatchRouter = async () => {
   const db = await storage
 
+  const sysAdmin = await db.collections["user"].findOne({ where: { phone: SYSADMIN_PHONE }})
+
+  if(!sysAdmin){
+    const sysadminId = new ObjectId().toHexString()
+    const deptId = new ObjectId().toHexString()
+
+    const deptentry = {
+      id: deptId,
+      name: "Line Manager",
+      description: "Line management department",
+      hod: sysadminId,
+    }
+
+    const userentry = {
+      id: sysadminId,
+      name: SYSADMIN_NAME,
+      phone: SYSADMIN_PHONE,
+      department: deptId,
+      type: "HOD",
+      password: sha1(SYSADMIN_PASSWORD),
+      isDeleted: false
+    }
+
+    await db.collections["department"].create(deptentry)
+    await db.collections["user"].create(userentry)
+  }
+
   Object.assign(app.locals, { db })
 
   app.use(bodyParser.urlencoded({ extended: true }))

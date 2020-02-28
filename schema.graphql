@@ -2,11 +2,19 @@ type Query{
   hello: String
 
   airplanes: [airplane]
-  airplane(plane: Uairplane): airplane
+  airplane(plane: Uairplane!): airplane
+
+  departments: [department]
+  department(department: Udepartment!): department
+
+  users: [user]
+  user(user: Uuser!): user
 }
 
 type Mutation{
   airplanes: airplaneMutations
+  departments: departmentMutations
+  users: userMutations
 }
 
 type airplane{
@@ -31,4 +39,62 @@ type airplaneMutations{
   update(airplane: Uairplane): airplane
   archive(airplane: Uairplane): airplane
   restore(airplane: Uairplane): airplane
+}
+
+type department{
+  id: String
+  name: String
+  description: String
+  hod: user
+  users: [user]
+}
+
+input Idepartment{
+  name: String!
+  description: String!
+  hod: String!
+}
+
+input Udepartment{
+  id: String!
+  name: String
+  description: String
+  hod: String
+}
+
+type departmentMutations{
+  create(department: Idepartment): department
+  update(department: Udepartment): department
+  archive(department: Udepartment): department
+  restore(department: Udepartment): department
+}
+
+type user{
+  id: String
+  name: String
+  phone: String
+  department: department
+  type: String
+}
+
+input Iuser{
+  name: String!
+  phone: String!
+  department: String
+  type: String!
+}
+
+input Uuser{
+  id: String!
+  name: String
+  phone: String
+  department: String
+  type: String
+}
+
+type userMutations{
+  create(user: Iuser): user
+  update(user: Uuser): user
+  archive(user: Uuser): user
+  restore(user: Uuser): user
 }

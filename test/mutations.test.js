@@ -148,3 +148,187 @@ describe("Airplanes", () => {
       });
   });
 });
+
+describe("Users", () => {
+  it("Should create an user", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($user: Iuser!) {
+            users {
+              create(user: $user) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          user: {
+            name: "user one",
+            phone: "0719420491",
+            type: "HOD"
+          }
+        }
+      })
+      .end((err, res) => {
+        console.log(res.body)
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.users.create.id).to.be.a.string;
+
+        sharedInfo.userId = res.body.data.users.create.id;
+        done();
+      });
+  });
+
+  it("Should update an user", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($user: Uuser!) {
+            users {
+              update(user: $user) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          user: {
+            id: sharedInfo.userId,
+            name: "updated user",
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.users.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch user", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          users{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.users[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});
+
+
+describe("Departments", () => {
+  it("Should create an department", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($department: Idepartment!) {
+            departments {
+              create(department: $department) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          department: {
+            name: "department one",
+            description: "first department",
+            hod: sharedInfo.userId
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.departments.create.id).to.be.a.string;
+
+        sharedInfo.departmentId = res.body.data.departments.create.id;
+        done();
+      });
+  });
+
+  it("Should update an department", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($department: Udepartment!) {
+            departments {
+              update(department: $department) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          department: {
+            id: sharedInfo.departmentId,
+            name: "updated department",
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.departments.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch department", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          departments{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.departments[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});

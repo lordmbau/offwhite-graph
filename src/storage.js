@@ -4,12 +4,16 @@ import MongoAdapter from "sails-mongo"
 
 //Import Models
 import airplane from "./graph/mutations/airplanes/model"
+import department from "./graph/mutations/departments/model"
+import user from "./graph/mutations/users/model"
 
 const { NODE_ENV, DB_URL } = process.env
 
 var waterline = new Waterline()
 
 waterline.registerModel(airplane)
+waterline.registerModel(department)
+waterline.registerModel(user)
 
 
 var config = {

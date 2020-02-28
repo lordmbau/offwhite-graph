@@ -215,7 +215,7 @@ describe("Users", () => {
         expect(res.body.errors).to.not.exist;
         expect(res.body.data.users.create.id).to.be.a.string;
 
-        sharedInfo.userId = res.body.data.users.create.id;
+        sharedInfo.pilotId = res.body.data.users.create.id;
         done();
       });
   });
@@ -362,6 +362,98 @@ describe("Departments", () => {
         expect(res.body).to.not.be.null;
         expect(res.body.errors).to.not.exist;
         expect(res.body.data.departments[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});
+
+describe("Defects", () => {
+  it("Should create an defect", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($defect: Idefect!) {
+            defects {
+              create(defect: $defect) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          defect: {
+            pilot: sharedInfo.pilotId,
+            description: "first defect",
+            airplane: sharedInfo.airplaneId
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.defects.create.id).to.be.a.string;
+
+        sharedInfo.defectId = res.body.data.defects.create.id;
+        done();
+      });
+  });
+
+  it("Should update an defect", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($defect: Udefect!) {
+            defects {
+              update(defect: $defect) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          defect: {
+            id: sharedInfo.defectId,
+            ata_chapter: "ata chapter",
+            ata_subchapter: "ata subchapter"
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.defects.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch defect", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          defects{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.defects[0].id).to.be.a.string;
 
         done();
       });

@@ -15,12 +15,19 @@ import {
   nested as Nuser
 } from "./users"
 
+import {
+  list as defects,
+  single as defect,
+  nested as Ndefect
+} from "./defects"
+
 const nested = {}
 
 Object.assign(
   nested,
   Ndepartment,
-  Nuser
+  Nuser,
+  Ndefect
 )
 
 const Query = {
@@ -33,7 +40,10 @@ const Query = {
   department,
 
   users,
-  user
+  user,
+
+  defects,
+  defect
 }
 
 export {

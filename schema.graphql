@@ -9,12 +9,16 @@ type Query{
 
   users: [user]
   user(user: Uuser!): user
+
+  defects: [defect]
+  defect(defect: Udefect!): defect
 }
 
 type Mutation{
   airplanes: airplaneMutations
   departments: departmentMutations
   users: userMutations
+  defects: defectMutations
 }
 
 type airplane{
@@ -97,4 +101,37 @@ type userMutations{
   update(user: Uuser): user
   archive(user: Uuser): user
   restore(user: Uuser): user
+}
+
+type defect{
+  id: String
+  pilot: user
+  airplane: airplane
+  description: String
+  ata_chapter: String
+  ata_subchapter: String
+}
+
+input Idefect{
+  pilot: String!
+  airplane: String!
+  description: String!
+  ata_chapter: String
+  ata_subchapter: String
+}
+
+input Udefect{
+  id: String!
+  pilot: String
+  airplane: String
+  description: String
+  ata_chapter: String
+  ata_subchapter: String
+}
+
+type defectMutations{
+  create(defect: Idefect): defect
+  update(defect: Udefect): defect
+  archive(defect: Udefect): defect
+  restore(defect: Udefect): defect
 }

@@ -44,7 +44,7 @@ const archive = async (data, { db: { collections } }) => {
   const { id } = data[name];
 
   try {
-    await collections[name].destroyOne({ id });
+    await collections[name].update({ id }).set({ isDeleted: true });
 
     return {
       id

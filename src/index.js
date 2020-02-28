@@ -6,7 +6,6 @@ import express from "express"
 import { makeExecutableSchema } from "graphql-tools"
 import graphqlHTTP from "express-graphql"
 import { importSchema } from 'graphql-import'
-import data from "./utils/data"
 
 import resolvers from "./graph"
 
@@ -21,7 +20,8 @@ router.use(
       schema,
       graphiql: true,
       context: {
-        data
+        user: req.user,
+        db: req.app.locals.db
       }
     })(req, res, next)
   }

@@ -1,64 +1,34 @@
 type Query{
   hello: String
 
-  pireps: [Pirep]
-  pirep(id: Int!): Pirep
-
-  line_plans: [LinePlan]
-  line_plan(id: Int!): LinePlan
-
-  materials: [Material]
-  material(id: Int!): Material
-
-  line_maintenances: [LineMaintenance]
-  line_maintenance(id: Int!): LineMaintenance
-
-  tech_records: [TechRecord]
-  tech_record(id: Int!): TechRecord
+  airplanes: [airplane]
+  airplane(plane: Uairplane): airplane
 }
 
-# type User{
-#   id: String
-#   name: String
-#   department: Department
-# }
+type Mutation{
+  airplanes: airplaneMutations
+}
 
-# type Department{
-#   id: String
-#   name: String
-#   hod: User
-# }
-
-type Pirep{
-  id: Int
+type airplane{
+  id: String
+  fleet: String
   reg_no: String
-  defects: [Int]
 }
 
-type LinePlan{
-  id: Int
-  defects: [Int]
+input Iairplane{
+  fleet: String!
+  reg_no: String!
+}
+
+input Uairplane{
+  id: String!
+  fleet: String
   reg_no: String
-  ata_chapter: String
-  ata_subchapter: String
-  maintenance_manual: String
 }
 
-type Material{
-  id: Int
-  name: String
-  p_n: String
-  s_n: String
-  status: Boolean
-}
-
-type LineMaintenance{
-  id: Int
-  lp: LinePlan
-}
-
-type TechRecord{
-  id: Int
-  materials: [Material]
-  status: Boolean
+type airplaneMutations{
+  create(airplane: Iairplane): airplane
+  update(airplane: Uairplane): airplane
+  archive(airplane: Uairplane): airplane
+  restore(airplane: Uairplane): airplane
 }

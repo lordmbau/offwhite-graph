@@ -185,6 +185,41 @@ describe("Users", () => {
       });
   });
 
+  it("Should create a pilot", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($user: Iuser!) {
+            users {
+              create(user: $user) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          user: {
+            name: "pilot one",
+            phone: "0774751895",
+            type: "PILOT"
+          }
+        }
+      })
+      .end((err, res) => {
+        console.log(res.body)
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.users.create.id).to.be.a.string;
+
+        sharedInfo.userId = res.body.data.users.create.id;
+        done();
+      });
+  });
+
   it("Should update an user", done => {
     chai
       .request(app)

@@ -36,11 +36,46 @@ describe("Setup", () => {
   });
 });
 
+describe("SYSADMIN", function () {
+  it("Should log in sysadmin", done => {
+    chai
+      .request(app)
+      .post("/auth/login")
+      .set("content-type", "application/json")
+      .send({
+        phone: "0701236972",
+        password: "suPassword"
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null
+
+        sharedInfo.authorization = res.body.token
+        done();
+      });
+  });
+  it("Should fetch user from token", done => {
+    chai
+      .request(app)
+      .get("/auth/me")
+      .set("content-type", "application/json")
+      .set("authorization", sharedInfo.authorization)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null
+
+        sharedInfo.userId = res.body.id
+        done();
+      });  
+  })
+});
+
 describe("Hello", () => {
   it("Should say hello", done => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `{
@@ -64,6 +99,7 @@ describe("Airplanes", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -97,6 +133,7 @@ describe("Airplanes", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -128,6 +165,7 @@ describe("Airplanes", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -154,6 +192,7 @@ describe("Users", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -188,6 +227,7 @@ describe("Users", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -222,6 +262,7 @@ describe("Users", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -253,6 +294,7 @@ describe("Users", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -280,6 +322,7 @@ describe("Departments", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -314,6 +357,7 @@ describe("Departments", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -345,6 +389,7 @@ describe("Departments", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -371,6 +416,7 @@ describe("Defects", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -405,6 +451,7 @@ describe("Defects", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -438,6 +485,7 @@ describe("Defects", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -464,6 +512,7 @@ describe("Rotables", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -498,6 +547,7 @@ describe("Rotables", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -529,6 +579,7 @@ describe("Rotables", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -555,6 +606,7 @@ describe("Statuses", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -588,6 +640,7 @@ describe("Statuses", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `
@@ -619,6 +672,7 @@ describe("Statuses", () => {
     chai
       .request(app)
       .post("/graph")
+      .set("authorization", sharedInfo.authorization)
       .set("content-type", "application/json")
       .send({
         query: `

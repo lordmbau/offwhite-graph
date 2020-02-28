@@ -15,6 +15,9 @@ type Query{
 
   rotables: [rotable]
   rotable(rotable: Urotable!): rotable
+
+  statuses: [status]
+  status(status: Ustatus!): status
 }
 
 type Mutation{
@@ -23,6 +26,7 @@ type Mutation{
   users: userMutations
   defects: defectMutations
   rotables: rotableMutations
+  statuses: statusMutations
 }
 
 type airplane{
@@ -168,4 +172,33 @@ type rotableMutations{
   update(rotable: Urotable): rotable
   archive(rotable: Urotable): rotable
   restore(rotable: Urotable): rotable
+}
+
+enum statusTypes{
+  COMPLETE
+  IN_PROGRESS
+}
+
+type status{
+  id: String
+  type: statusTypes
+  author: user
+}
+
+input Istatus{
+  type: statusTypes!
+  author: String!
+}
+
+input Ustatus{
+  id: String!
+  author: String
+  type: statusTypes
+}
+
+type statusMutations{
+  create(status: Istatus): status
+  update(status: Ustatus): status
+  archive(status: Ustatus): status
+  restore(status: Ustatus): status
 }

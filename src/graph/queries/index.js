@@ -27,6 +27,12 @@ import {
   nested as Nrotable
 } from "./rotables"
 
+import {
+  list as statuses,
+  single as status,
+  nested as Nstatus
+} from "./status"
+
 const nested = {}
 
 Object.assign(
@@ -34,7 +40,8 @@ Object.assign(
   Ndepartment,
   Nuser,
   Ndefect,
-  Nrotable
+  Nrotable,
+  Nstatus
 )
 
 const Query = {
@@ -53,7 +60,10 @@ const Query = {
   defect,
 
   rotables,
-  rotable
+  rotable,
+
+  statuses,
+  status
 }
 
 export {

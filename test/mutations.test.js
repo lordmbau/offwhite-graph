@@ -174,7 +174,6 @@ describe("Users", () => {
         }
       })
       .end((err, res) => {
-        console.log(res.body)
         res.should.have.status(200);
         expect(res.body).to.not.be.null;
         expect(res.body.errors).to.not.exist;
@@ -209,7 +208,6 @@ describe("Users", () => {
         }
       })
       .end((err, res) => {
-        console.log(res.body)
         res.should.have.status(200);
         expect(res.body).to.not.be.null;
         expect(res.body.errors).to.not.exist;
@@ -545,6 +543,96 @@ describe("Rotables", () => {
         expect(res.body).to.not.be.null;
         expect(res.body.errors).to.not.exist;
         expect(res.body.data.rotables[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});
+
+describe("Statuses", () => {
+  it("Should create an status", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($status: Istatus!) {
+            statuses {
+              create(status: $status) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          status: {
+            author: sharedInfo.userId,
+            type: "IN_PROGRESS"
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.statuses.create.id).to.be.a.string;
+
+        sharedInfo.statusId = res.body.data.statuses.create.id;
+        done();
+      });
+  });
+
+  it("Should update an status", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($status: Ustatus!) {
+            statuses {
+              update(status: $status) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          status: {
+            id: sharedInfo.statusId,
+            type: "COMPLETE"
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.statuses.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch status", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          statuses{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.statuses[0].id).to.be.a.string;
 
         done();
       });

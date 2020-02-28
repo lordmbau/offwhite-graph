@@ -3,12 +3,14 @@ import express from "express"
 import morgan from "morgan"
 import cors from "cors"
 import bodyParser from "body-parser"
+import sha1 from "sha1"
+import { ObjectId } from "mongodb"
 
 import storage from "./storage"
 import graphRouter from "./index"
 import { authMiddleware, router as authRouter } from "./auth"
 
-const { NODE_ENV, PORT = 3000 } = process.env
+const { NODE_ENV, PORT = 3000, SYSADMIN_PHONE, SYSADMIN_NAME, SYSADMIN_PASSWORD } = process.env
 
 var app = express()
 

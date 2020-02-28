@@ -35,12 +35,9 @@ router.post('/login', async (req, res) => {
     return res.json({ ok: false, message: "Incorrect password" })
   } else {
     const { name, department, type, phone, id } = user
-    const role = await collections["role"].findOne({ where: {
-      id: type
-    }})
     const token = jwt.sign({ id, name, department, type, phone }, SECRET)
     res.cookie('token', token)
-    return res.json({ ok: true, token, user: { id, name, department, type: Object.assign(role, { permissions: role.permissions.split(",")}), phone }})
+    return res.json({ ok: true, token, user: { id, name, department, type, phone }})
   }
 })
 

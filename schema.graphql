@@ -81,19 +81,26 @@ type departmentMutations{
   restore(department: Udepartment): department
 }
 
+enum userTypes{
+  PILOT
+  HOD
+  LINE_PLANNING
+  LINE_MAINTENANCE
+}
+
 type user{
   id: String
   name: String
   phone: String
   department: department
-  type: String
+  type: userTypes
 }
 
 input Iuser{
   name: String!
   phone: String!
   department: String
-  type: String!
+  type: userTypes!
 }
 
 input Uuser{
@@ -101,7 +108,7 @@ input Uuser{
   name: String
   phone: String
   department: String
-  type: String
+  type: userTypes
 }
 
 type userMutations{

@@ -14,6 +14,7 @@ export default Waterline.Collection.extend({
     ata_subchapter: { type: "string" },
     manual: { type: "string" },
     airplane: { type: "string", required: true },
+    status: { type: "string", required: true },
     isDeleted: { type: "boolean", defaultsTo: false }
   }
 });

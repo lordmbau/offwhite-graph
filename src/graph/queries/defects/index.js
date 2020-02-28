@@ -32,6 +32,14 @@ const nested = {
     async pilot(root, args, { db: { collections }}){
       const entry = await collections["user"].findOne({ where: { id: root.pilot }})
       return entry
+    },
+    async status(root, args, { db: { collections }}){
+      const entry = await collections["status"].findOne({ where: { id: root.status }})
+      return entry
+    },
+    async airplane(root, args, { db: { collections }}){
+      const entry = await collections["airplane"].findOne({ where: { id: root.airplane }})
+      return entry
     }
   }
 }

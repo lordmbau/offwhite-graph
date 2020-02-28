@@ -3,12 +3,15 @@ const { name } = require("./about")
 
 const { UserError } = require("graphql-errors");
 
-const create = async (data, { db: { collections } }) => {
+const create = async (data, { db: { collections }, user: { id: author } }) => {
   const id = new ObjectId().toHexString();
-  const entry = Object.assign(data[name], { id, isDeleted: false });
+  const statusId = new ObjectId().toHexString()
+  const entry = Object.assign(data[name], { id, isDeleted: false, status: statusId });
+  const status = { id: statusId, author, type: "NEW" }
 
-  try {
+  try { 
     await collections[name].create(entry);
+    await collections["status"].create(status)
 
     return entry;
   } catch (err) {

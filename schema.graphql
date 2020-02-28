@@ -126,6 +126,7 @@ type defect{
   ata_chapter: String
   ata_subchapter: String
   manual: String
+  status: status
 }
 
 input Idefect{
@@ -185,6 +186,7 @@ type rotableMutations{
 }
 
 enum statusTypes{
+  NEW
   COMPLETE
   IN_PROGRESS
 }

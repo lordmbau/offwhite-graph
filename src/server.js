@@ -6,6 +6,7 @@ import bodyParser from "body-parser"
 
 import storage from "./storage"
 import graphRouter from "./index"
+import { authMiddleware, router as authRouter } from "./auth"
 
 const { NODE_ENV, PORT = 3000 } = process.env
 
@@ -48,7 +49,8 @@ const attatchRouter = async () => {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json('*/*'))
   app.get("/health", (req, res) => res.json({ ok: true, message: "welcome to graph api" }));
-  app.use("/", graphRouter)
+  app.use("/auth", authRouter)
+  app.use("/", authMiddleware, graphRouter)
 }
 
 attatchRouter()

@@ -223,41 +223,6 @@ describe("Users", () => {
       });
   });
 
-  it("Should create a pilot", done => {
-    chai
-      .request(app)
-      .post("/graph")
-      .set("authorization", sharedInfo.authorization)
-      .set("content-type", "application/json")
-      .send({
-        query: `
-          mutation ($user: Iuser!) {
-            users {
-              create(user: $user) {
-                id
-              }
-            }
-          }            
-        `,
-        variables: {
-          user: {
-            name: "pilot one",
-            phone: "0774751895",
-            type: "PILOT"
-          }
-        }
-      })
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res.body).to.not.be.null;
-        expect(res.body.errors).to.not.exist;
-        expect(res.body.data.users.create.id).to.be.a.string;
-
-        sharedInfo.pilotId = res.body.data.users.create.id;
-        done();
-      });
-  });
-
   it("Should update an user", done => {
     chai
       .request(app)
@@ -336,8 +301,8 @@ describe("Departments", () => {
         `,
         variables: {
           department: {
-            name: "department one",
-            description: "first department",
+            name: "Pilots",
+            description: "pilots department",
             hod: sharedInfo.userId
           }
         }
@@ -349,6 +314,42 @@ describe("Departments", () => {
         expect(res.body.data.departments.create.id).to.be.a.string;
 
         sharedInfo.departmentId = res.body.data.departments.create.id;
+        done();
+      });
+  });
+
+  it("Should create a pilot", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("authorization", sharedInfo.authorization)
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($user: Iuser!) {
+            users {
+              create(user: $user) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          user: {
+            name: "pilot one",
+            phone: "0774751895",
+            type: "PILOT",
+            department: sharedInfo.departmentId
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.users.create.id).to.be.a.string;
+
+        sharedInfo.pilotId = res.body.data.users.create.id;
         done();
       });
   });
@@ -372,7 +373,7 @@ describe("Departments", () => {
         variables: {
           department: {
             id: sharedInfo.departmentId,
-            name: "updated department",
+            name: "Pilots department",
           }
         }
       })

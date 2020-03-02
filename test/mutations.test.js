@@ -466,9 +466,7 @@ describe("Defects", () => {
         variables: {
           defect: {
             id: sharedInfo.defectId,
-            ata_chapter: "ata chapter",
-            ata_subchapter: "ata subchapter",
-            manual: "http://link.to/manual"
+            description: "updated defect"
           }
         }
       })
@@ -501,6 +499,101 @@ describe("Defects", () => {
         expect(res.body).to.not.be.null;
         expect(res.body.errors).to.not.exist;
         expect(res.body.data.defects[0].id).to.be.a.string;
+
+        done();
+      });
+  });
+});
+
+describe("Manuals", () => {
+  it("Should create an manual", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("authorization", sharedInfo.authorization)
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($manual: Imanual!) {
+            manuals {
+              create(manual: $manual) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          manual: {
+            ata_chapter: "ata chapter",
+            ata_subchapter: "ata subchapter",
+            defect: sharedInfo.defectId
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.manuals.create.id).to.be.a.string;
+
+        sharedInfo.manualId = res.body.data.manuals.create.id;
+        done();
+      });
+  });
+
+  it("Should update an manual", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("authorization", sharedInfo.authorization)
+      .set("content-type", "application/json")
+      .send({
+        query: `
+          mutation ($manual: Umanual!) {
+            manuals {
+              update(manual: $manual) {
+                id
+              }
+            }
+          }            
+        `,
+        variables: {
+          manual: {
+            id: sharedInfo.manualId,
+            ata_subchapter: "updated subchapter"
+          }
+        }
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.manuals.update.id).to.be.a.string;
+        done();
+      });
+  });
+
+  it("Should fetch manual", done => {
+    chai
+      .request(app)
+      .post("/graph")
+      .set("authorization", sharedInfo.authorization)
+      .set("content-type", "application/json")
+      .send({
+        query: `
+        {
+          manuals{
+            id
+          }
+        }        
+        `
+      })
+      .end((err, res) => {
+        console.log(res.body)
+        res.should.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body.errors).to.not.exist;
+        expect(res.body.data.manuals[0].id).to.be.a.string;
 
         done();
       });

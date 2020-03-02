@@ -9,6 +9,7 @@ import user from "./graph/mutations/users/model"
 import defect from "./graph/mutations/defects/model"
 import rotable from "./graph/mutations/rotables/model"
 import status from "./graph/mutations/status/model"
+import manual from "./graph/mutations/manuals/model"
 
 const { NODE_ENV, DB_URL } = process.env
 
@@ -20,7 +21,7 @@ waterline.registerModel(user)
 waterline.registerModel(defect)
 waterline.registerModel(rotable)
 waterline.registerModel(status)
-
+waterline.registerModel(manual)
 
 var config = {
   adapters: {

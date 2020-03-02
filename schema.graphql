@@ -18,6 +18,9 @@ type Query{
 
   statuses: [status]
   status(status: Ustatus!): status
+
+  manuals: [manual]
+  manual(manual: Umanual!): manual
 }
 
 type Mutation{
@@ -27,6 +30,7 @@ type Mutation{
   defects: defectMutations
   rotables: rotableMutations
   statuses: statusMutations
+  manuals: manualMutations
 }
 
 type airplane{
@@ -123,9 +127,7 @@ type defect{
   pilot: user
   airplane: airplane
   description: String
-  ata_chapter: String
-  ata_subchapter: String
-  manual: String
+  manual: manual
   status: status
 }
 
@@ -133,9 +135,6 @@ input Idefect{
   pilot: String!
   airplane: String!
   description: String!
-  ata_chapter: String
-  ata_subchapter: String
-  manual: String
 }
 
 input Udefect{
@@ -143,9 +142,6 @@ input Udefect{
   pilot: String
   airplane: String
   description: String
-  ata_chapter: String
-  ata_subchapter: String
-  manual: String
 }
 
 type defectMutations{
@@ -153,6 +149,33 @@ type defectMutations{
   update(defect: Udefect): defect
   archive(defect: Udefect): defect
   restore(defect: Udefect): defect
+}
+
+type manual{
+  id: String
+  ata_chapter: String
+  ata_subchapter: String
+  defect: defect
+}
+
+input Imanual{
+  ata_chapter: String!
+  ata_subchapter: String!
+  defect: String!
+}
+
+input Umanual{
+  id: String!
+  ata_chapter: String
+  ata_subchapter: String
+  defect: String
+}
+
+type manualMutations{
+  create(manual: Imanual): manual
+  update(manual: Umanual): manual
+  archive(manual: Umanual): manual
+  restore(manual: Umanual): manual
 }
 
 type rotable{

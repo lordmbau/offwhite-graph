@@ -29,22 +29,10 @@ const single = async (root, args, { db: { collections } }) => {
 
 const nested = {
   [name]:{
-    async pilot(root, args, { db: { collections }}){
-      const entry = await collections["user"].findOne({ where: { id: root.pilot }})
+    async defect(root, args, { db: { collections }}){
+      const entry = await collections["defect"].findOne({ where: { id: root.defect }})
       return entry
     },
-    async status(root, args, { db: { collections }}){
-      const entry = await collections["status"].findOne({ where: { id: root.status }})
-      return entry
-    },
-    async airplane(root, args, { db: { collections }}){
-      const entry = await collections["airplane"].findOne({ where: { id: root.airplane }})
-      return entry
-    },
-    async manual(root, args, { db: { collections }}){
-      const entry = await collections["manual"].findOne({ where: { defect: root.id }})
-      return entry
-    }
   }
 }
 

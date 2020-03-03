@@ -42,7 +42,7 @@ const nested = {
       return entry
     },
     async manual(root, args, { db: { collections }}){
-      const entry = await collections["manual"].findOne({ where: { defect: root.id }})
+      const entry = await collections["manual"].findOne({ where: { id: root.manual }})
       return entry
     }
   }

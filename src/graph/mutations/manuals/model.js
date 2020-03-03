@@ -8,6 +8,7 @@ export default Waterline.Collection.extend({
 
   attributes: {
     id: { type: "string", required: true },
+    name: { type: "string", required: true },
     ata_chapter: { type: "string", required: true },
     ata_subchapter: { type: "string", required: true },
     link: { type: "string", required: true },

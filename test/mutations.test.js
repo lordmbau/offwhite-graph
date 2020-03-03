@@ -525,6 +525,7 @@ describe("Manuals", () => {
         `,
         variables: {
           manual: {
+            name:"manual one",
             ata_chapter: "ata chapter",
             ata_subchapter: "ata subchapter",
             link: "link to manual pdf"

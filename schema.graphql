@@ -156,12 +156,14 @@ type defectMutations{
 
 type manual{
   id: String
+  name: String
   ata_chapter: String
   ata_subchapter: String
   link: String
 }
 
 input Imanual{
+  name: String!
   ata_chapter: String!
   ata_subchapter: String!
   link: String!
@@ -169,6 +171,7 @@ input Imanual{
 
 input Umanual{
   id: String!
+  name: String
   ata_chapter: String
   ata_subchapter: String
   link: String

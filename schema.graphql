@@ -144,6 +144,7 @@ input Udefect{
   airplane: String
   description: String
   full_description: String
+  manual: String
 }
 
 type defectMutations{
@@ -157,20 +158,20 @@ type manual{
   id: String
   ata_chapter: String
   ata_subchapter: String
-  defect: defect
+  link: String
 }
 
 input Imanual{
   ata_chapter: String!
   ata_subchapter: String!
-  defect: String!
+  link: String!
 }
 
 input Umanual{
   id: String!
   ata_chapter: String
   ata_subchapter: String
-  defect: String
+  link: String
 }
 
 type manualMutations{

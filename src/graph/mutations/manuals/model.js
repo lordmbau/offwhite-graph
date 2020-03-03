@@ -10,7 +10,7 @@ export default Waterline.Collection.extend({
     id: { type: "string", required: true },
     ata_chapter: { type: "string", required: true },
     ata_subchapter: { type: "string", required: true },
-    defect: { type: "string", required: true },
+    link: { type: "string", required: true },
     isDeleted: { type: 'boolean', defaultsTo: false }
   }
 })

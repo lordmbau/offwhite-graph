@@ -527,7 +527,7 @@ describe("Manuals", () => {
           manual: {
             ata_chapter: "ata chapter",
             ata_subchapter: "ata subchapter",
-            defect: sharedInfo.defectId
+            link: "link to manual pdf"
           }
         }
       })

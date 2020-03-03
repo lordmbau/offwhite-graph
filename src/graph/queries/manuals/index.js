@@ -27,13 +27,4 @@ const single = async (root, args, { db: { collections } }) => {
   return entry;
 };
 
-const nested = {
-  [name]:{
-    async defect(root, args, { db: { collections }}){
-      const entry = await collections["defect"].findOne({ where: { id: root.defect }})
-      return entry
-    },
-  }
-}
-
-export { list, single, listDeleted, nested };
+export { list, single, listDeleted };

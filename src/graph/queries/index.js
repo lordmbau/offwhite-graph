@@ -36,7 +36,6 @@ import {
 import {
   list as manuals,
   single as manual,
-  nested as Nmanual
 } from "./manuals"
 
 const nested = {}
@@ -48,7 +47,6 @@ Object.assign(
   Ndefect,
   Nrotable,
   Nstatus,
-  Nmanual
 )
 
 const Query = {

@@ -34,8 +34,9 @@ router.post('/login', async (req, res) => {
   } else if(sha1(password) !== user.password){
     return res.json({ ok: false, message: "Incorrect password" })
   } else {
-    const { name, department, type, phone, id } = user
-    const token = jwt.sign({ id, name, department, type, phone }, SECRET)
+    const { name, department: deptId, type, phone, id } = user
+    const department = await collections["department"].findOne({ where: { id: deptId }})
+    const token = jwt.sign({ id, name, deptId, type, phone }, SECRET)
     res.cookie('token', token)
     return res.json({ ok: true, token, user: { id, name, department, type, phone }})
   }

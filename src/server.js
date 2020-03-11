@@ -14,7 +14,7 @@ const { NODE_ENV, PORT = 3000, SYSADMIN_PHONE, SYSADMIN_NAME, SYSADMIN_PASSWORD 
 
 var app = express()
 
-if (NODE_ENV !== "test") app.use(morgan("dev"), cors());
+if (NODE_ENV !== "test") app.use(morgan("common"), cors());
 
 const attatchRouter = async () => {
   const db = await storage

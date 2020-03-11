@@ -467,7 +467,8 @@ describe("Defects", () => {
         variables: {
           defect: {
             id: sharedInfo.defectId,
-            full_description: "Ughhhhhh some more defects, now in full details. Also add manual shit over here"
+            full_description: "Ughhhhhh some more defects, now in full details. Also add manual shit over here",
+            maintenance_description: "Changed this -> part to that -> part"
           }
         }
       })

@@ -129,6 +129,7 @@ type defect{
   airplane: airplane
   description: String
   full_description: String
+  maintenance_description: String
   manual: manual
   status: status
 }
@@ -145,6 +146,7 @@ input Udefect{
   airplane: String
   description: String
   full_description: String
+  maintenance_description: String
   manual: String
 }
 

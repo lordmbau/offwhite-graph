@@ -37,7 +37,7 @@ const attatchRouter = async () => {
       name: SYSADMIN_NAME,
       phone: SYSADMIN_PHONE,
       department: deptId,
-      type: "HOD",
+      type: "SYSADMIN",
       password: sha1(SYSADMIN_PASSWORD),
       isDeleted: false
     }

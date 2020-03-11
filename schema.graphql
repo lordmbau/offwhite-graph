@@ -86,6 +86,7 @@ type departmentMutations{
 }
 
 enum userTypes{
+  SYSADMIN
   PILOT
   HOD
   LINE_PLANNING
